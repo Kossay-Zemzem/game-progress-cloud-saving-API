@@ -1,0 +1,28 @@
+#This workflow should build and test the project on every push or PR to the main
+
+name: Build and verify workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+        - main
+jobs:
+  build:
+    runs_on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6.0.1
+
+    - name: Set up java runtime
+    - uses: actions/setup-java@v5
+      with:
+          distribution: 'temurin'
+          java-version: '17'
+
+    - name: Build and run tests using maven
+    - run: mvn clean verify
+
+
