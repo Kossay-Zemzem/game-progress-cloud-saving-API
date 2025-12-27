@@ -23,6 +23,6 @@ jobs:
           java-version: '17'
 
     - name: Build and run tests using maven
-    - run: mvn clean verify
+      run: mvn clean verify
 
 
