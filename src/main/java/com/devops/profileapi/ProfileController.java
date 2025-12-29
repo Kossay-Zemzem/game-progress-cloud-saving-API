@@ -1,6 +1,7 @@
 package com.devops.profileapi;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -11,8 +12,14 @@ public class ProfileController {
     ProfileController(ProfileRepository profileRepository) {
         this.profileRepository = profileRepository;
     }
+
     @GetMapping("/profiles")
     public List<Profile> getAllProfiles() {
         return profileRepository.findAll();
+    }
+
+    @GetMapping("/profiles/{id}")
+    public Profile getProfileById(@PathVariable("id") Long id) {
+        return profileRepository.findById(id).orElse(null);
     }
 }
