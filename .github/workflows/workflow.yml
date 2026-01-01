@@ -1,6 +1,6 @@
 #This workflow should build and test the project on every push or PR to the main
 
-name: Build and verify workflow
+name: CI workflow
 
 permissions:
   contents: read
