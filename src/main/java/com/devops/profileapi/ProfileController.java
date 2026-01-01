@@ -16,12 +16,13 @@ public class ProfileController {
 
     @GetMapping("/profiles")
     public List<Profile> getAllProfiles() {
-        log.info("REQUEST: Fetching all profiles");
+        log.info("method=POST path=/profiles desc=Fetching all profiles");
         return profileRepository.findAll();
     }
 
     @GetMapping("/profiles/{id}")
     public Profile getProfileById(@PathVariable("id") Long id) {
+        log.info("method=POST path=/profiles/{} desc=Fetching profile by id", id);
         return profileRepository.findById(id).orElse(null);
     }
 }
