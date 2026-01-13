@@ -54,7 +54,7 @@ public class ProfileController {
 
     @PostMapping("/profiles")
     public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
-        log.info("method=POST path=/profiles desc=Creating new profile, id={}", profile.getId());
+        log.info("method=POST path=/profiles desc=Creating new profile");
         Profile savedProfile = profileRepository.save(profile);
         profileCreateCounter.increment(); //metric increment
         URI location = URI.create(String.format("/profiles/%s", savedProfile.getId())); //return the location of the created resource as per REST conventions
