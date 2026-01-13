@@ -25,6 +25,19 @@ jobs:
         - uses: gitleaks/gitleaks-action@v2.3.9
           env:
             GITHUB_TOKEN: ${{ github.token }}
+  Sonarqube:
+     name: SonarQube Scan
+     runs-on: ubuntu-latest
+     steps:
+         - name: Checkout
+           uses: actions/checkout@v6.0.1
+           with:
+             # Disabling shallow clones is recommended for improving the relevancy of reporting
+             fetch-depth: 0
+         - name: Sonarqube
+           uses: SonarSource/sonarqube-scan-action@7.0.0
+           env:
+             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   build:
     runs-on: ubuntu-latest
     steps:
