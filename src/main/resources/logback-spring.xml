@@ -8,6 +8,8 @@
                 %highlight(level=%level)
                 %magenta(service=profile-api)
                 %blue(thread=%thread)
+                %red(traceId=%X{traceId:-null})
+                %red(spanId=%X{spanId:-null})
                 %yellow(logger=%logger)
                 %green(message="%msg")
                 %n
@@ -27,6 +29,8 @@
                 level=%level
                 service=profile-api
                 thread=%thread
+                traceId=%X{traceId:-}
+                spanId=%X{spanId:-}
                 logger=%logger
                 message="%msg"
                 %n
