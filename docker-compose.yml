@@ -1,0 +1,10 @@
+services:
+  api:
+    image: profileapi:latest
+    ports:
+      # If APP_PORT is set in .env, use it.
+      # If .env file is missing or variable is empty, default to 8080.
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - ${LOG_PATH:-./logs}:/logs
+      - ${DATA_PATH:-./data}:/data
