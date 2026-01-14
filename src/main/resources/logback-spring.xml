@@ -18,7 +18,7 @@
     </appender>
     <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/app.log</file>
+        <file>logs/profile-api.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>logs/profile-api.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -29,8 +29,8 @@
                 level=%level
                 service=profile-api
                 thread=%thread
-                traceId=%X{traceId:-}
-                spanId=%X{spanId:-}
+                traceId=%X{traceId:-null}
+                spanId=%X{spanId:-null}
                 logger=%logger
                 message="%msg"
                 %n
