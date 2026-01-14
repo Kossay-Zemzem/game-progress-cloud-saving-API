@@ -1,10 +1,14 @@
 services:
   api:
-    image: profileapi:latest
+    #Build the image from the Dockerfile if not already built
+    build: .
+    # Image used to run the container
+    image: profile-api:latest
     ports:
       # If APP_PORT is set in .env, use it.
       # If .env file is missing or variable is empty, default to 8080.
       - "${APP_PORT:-8080}:8080"
+    # Mount directories for logs and data for persistence
     volumes:
       - ${LOG_PATH:-./logs}:/logs
       - ${DATA_PATH:-./data}:/data
