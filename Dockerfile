@@ -1,5 +1,7 @@
 FROM eclipse-temurin:17.0.11_9-jdk-ubi9-minimal AS build
 
+WORKDIR /app
+
 # Copy Maven wrapper and config first (for caching)
 COPY mvnw pom.xml ./
 COPY .mvn .mvn
@@ -22,7 +24,7 @@ RUN mkdir -p /logs /data && chown -R spring:spring /logs /data
 
 USER spring:spring
 
-COPY --from=build /target/*.jar /app.jar
+COPY --from=build /app/target/*.jar /app.jar
 
 EXPOSE 8080
 
