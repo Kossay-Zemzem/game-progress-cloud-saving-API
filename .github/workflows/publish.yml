@@ -2,9 +2,11 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build-and-push:
@@ -28,7 +30,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/profile-api
+          images: ${{ var.DOCKERHUB_USERNAME }}/profile-api
           tags: |
             type=sha,prefix=main-
             type=raw,value=latest
