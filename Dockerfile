@@ -5,6 +5,8 @@ WORKDIR /app
 # Copy Maven wrapper and config first (for caching)
 COPY mvnw pom.xml ./
 COPY .mvn .mvn
+# Make mvnw executable (for Linux environments such as github runners)
+RUN chmod +x mvnw
 
 # Download app dependencies
 RUN ./mvnw -B dependency:go-offline
