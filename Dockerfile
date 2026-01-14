@@ -16,8 +16,14 @@ RUN ./mvnw -B package -DskipTests
 FROM eclipse-temurin:17.0.11_9-jdk-ubi9-minimal AS run
 
 RUN groupadd -r spring && useradd -r -g spring spring
+
+# Create /data and /logs directories and give spring user write access to them
+RUN mkdir -p /logs /data && chown -R spring:spring /logs /data
+
 USER spring:spring
 
 COPY --from=build /target/*.jar /app.jar
+
+EXPOSE 8080
 
 ENTRYPOINT ["java","-jar","/app.jar"]
