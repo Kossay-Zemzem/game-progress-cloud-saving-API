@@ -6,6 +6,35 @@ This project is a simple backend API built with Spring Boot that allows for mana
 
 The goal of this project is demonstrate DevOps practices in a practical project.
 
+## Table of Contents
+
+- [Official Docker Repository](#official-docker-repository)
+
+- [Technologies & Tools](#technologies--tools)
+
+- [Local Setup](#local-setup)
+  
+  - [Prerequisites](prerequisites)
+  - [How to Run](#how-to-run)
+  - [Configuration](#configuration)
+
+- [Docker Setup](#docker-setup)
+  
+  - [Option 1 - Using Docker Compose (Recommended)](#option-1---using-docker-compose-recommended)
+  - [Option 2 - Using Docker Directly](#option-2---using-docker-directly)
+    - [A - Pull from Docker Hub](#a-pull-from-docker-hub)
+    - [B - Build Locally](#b-build-locally)
+
+- [API Endpoints](#api-endpoints)
+  
+  - [1. Create Profile](#1-create-profile)
+  - [2. Get All Profiles](#2-get-all-profiles)
+  - [3. Get Profile by ID](#3-get-profile-by-id)
+
+- [Validation Rules](#validation-rules)
+
+- [API Usage Example](#api-usage-example)
+
 ## Official docker repository
 
 You can check the [Docker hub repoistory](https://hub.docker.com/r/kossayzemzem/profile-api) or use pull the image using :
@@ -56,7 +85,7 @@ docker pull kossayzemzem/profile-api:latest
 
 ## Local Setup
 
-**Prerequisites** 
+### Prerequisites
 
 - Java 17 or higher
 
