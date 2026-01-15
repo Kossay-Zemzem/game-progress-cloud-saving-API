@@ -8,7 +8,7 @@ The goal of this project is demonstrate DevOps practices in a practical project.
 
 ## Official docker repository
 
-You can checkthe [Docker hub repoistory](https://hub.docker.com/r/kossayzemzem/profile-api) or use pull the image using :
+You can check the [Docker hub repoistory](https://hub.docker.com/r/kossayzemzem/profile-api) or use pull the image using :
 
 ```bash
 docker pull kossayzemzem/profile-api:latest
@@ -72,23 +72,15 @@ git clone https://github.com/Kossay-Zemzem/game-progress-cloud-saving-API. git
 cd game-progress-cloud-saving-API
 ```
 
-#### 2. Build the Application
-
-Using Maven wrapper :
+#### 2. Run the Application
 
 ```bash
-./mvnw clean package
-```
-
-#### 3. Run the Application
-
-```bash
-java -jar target/profileapi-0.0.1-SNAPSHOT. jar
+./mvnw spring-boot:run
 ```
 
 The API will be available at `http://localhost:8080`
 
-#### 4. Verify the Application
+#### 3. Verify the Application
 
 Check the health endpoint:
 
@@ -113,5 +105,140 @@ The application uses the following default configuration
 > These settings can be changed in `src/main/resources/application.properties`
 
 ## Docker Setup
+
+There are two ways to run the API as a docker contanier 
+
+### Option 1 - Using Docker compose (recommended)
+
+- Docker compose will build and run a container with the same default configuration as the previous section :
+
+```bash
+# Clone the repository
+git clone https://github.com/Kossay-Zemzem/game-progress-cloud-saving-API. git
+
+# Make sure you are in the root directory of the project
+cd game-progress-cloud-saving-API
+
+#Run in attached mode
+docker compose up
+
+#Or run in detached mode 
+docker compose up -d
+
+#Stop the container
+docker compose down
+
+#Force rebuild the contanier if you change anything in source code
+docker compose up --build
+```
+
+The API will be available at `http://localhost:8080`
+
+**Configuration**
+
+- You can override server `PORT` , and the directories of `/data` and `/logs` using:
+
+```bash
+# Linux / Mac / Git Bash
+cp .env.example .env
+
+# Windows CMD
+copy .env.example .env
+```
+
+Then edit `.env` file to customize your configurationand compose will automatically use them :
+
+```env
+# Change this to the PORT you want the container to run on
+APP_PORT=8080
+
+# Change Folder paths for logs and data
+LOG_PATH=./logs
+DATA_PATH=./data
+```
+
+Then run
+
+```bash
+docker compose up
+```
+
+### Option 2 - Using Docker Directly
+
+You can either pull the image from docker hub or build it locally :
+
+#### A-Pull from Docker Hub
+
+##### 1. Pull the Image
+
+```bash
+docker pull kossayzemzem/profile-api:latest
+```
+
+##### 2. Run the Container
+
+Basic run (without persistence):
+
+```bash
+docker run -p 8080:8080 kossayzemzem/profile-api:latest
+```
+
+Run with persistent logs and database:
+
+```bash
+docker run -p 8080:8080 \
+  -v $(pwd)/logs:/logs \
+  -v $(pwd)/data:/data \
+  kossayzemzem/profile-api:latest
+```
+
+For Windows PowerShell:
+
+```powershell
+docker run -p 8080:8080 `
+  -v "${PWD}\logs:/logs" `
+  -v "${PWD}\data:/data" `
+  kossayzemzem/profile-api:latest
+```
+
+---
+
+#### B-Build Locally
+
+##### 1. Build the Image
+
+```bash
+docker build -t profile-api:local . 
+```
+
+##### 2. Run the Container
+
+Basic run (without persistence):
+
+```bash
+docker run -p 8080:8080 profile-api:local
+```
+
+Run with persistent logs and database:
+
+```bash
+docker run -p 8080:8080 \
+  -v $(pwd)/logs:/logs \
+  -v $(pwd)/data:/data \
+  profile-api:local
+```
+
+For Windows PowerShell:
+
+```powershell
+docker run -p 8080:8080 `
+  -v "${PWD}\logs:/logs" `
+  -v "${PWD}\data:/data" `
+  profile-api:local
+```
+
+---
+
+The API will be available at `http://localhost:8080`
 
 ## API endpoints & Example
