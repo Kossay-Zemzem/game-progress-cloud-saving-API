@@ -2,7 +2,8 @@ name: DAST Scan
 
 permissions:
   contents: read
-  issues: write
+  issues: write # For creating issues on vulnerabilities found
+  actions: write # For uploading artifacts to the workflow run
 
 on:
   push:
