@@ -1,3 +1,4 @@
+#This workflow builds and pushes a Docker image to Docker Hub on pushes to the main branch.
 name: Build and Push Docker Image
 
 permissions:
@@ -8,9 +9,9 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
+#  pull_request:
+#    branches:
+#      - main
 
 jobs:
   build-and-push:

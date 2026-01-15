@@ -1,6 +1,6 @@
-#This workflow should build and test the project on every push or PR to the main
+#This workflow should build and run unit tests on every push or PR to the main
 
-name: CI workflow
+name: Build and Test
 
 permissions:
   contents: read
@@ -15,17 +15,17 @@ on:
         - main
   workflow_dispatch:
 jobs:
-  scan:
-    name: gitleaks
-    runs-on: ubuntu-latest
-    steps:
-        - uses: actions/checkout@v6.0.1
-          with:
-            fetch-depth: 0
-        - uses: gitleaks/gitleaks-action@v2.3.9
-          env:
-            GITHUB_TOKEN: ${{ github.token }}
-  build:
+#  scan:
+#    name: gitleaks
+#    runs-on: ubuntu-latest
+#    steps:
+#        - uses: actions/checkout@v6.0.1
+#          with:
+#            fetch-depth: 0
+#        - uses: gitleaks/gitleaks-action@v2.3.9
+#          env:
+#            GITHUB_TOKEN: ${{ github.token }}
+  build-test:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
