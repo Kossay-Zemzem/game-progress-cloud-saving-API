@@ -56,6 +56,62 @@ docker pull kossayzemzem/profile-api:latest
 
 ## Local Setup
 
+**Prerequisites** 
+
+- Java 17 or higher
+
+- Maven 
+
+### How to run
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Kossay-Zemzem/game-progress-cloud-saving-API. git
+
+cd game-progress-cloud-saving-API
+```
+
+#### 2. Build the Application
+
+Using Maven wrapper :
+
+```bash
+./mvnw clean package
+```
+
+#### 3. Run the Application
+
+```bash
+java -jar target/profileapi-0.0.1-SNAPSHOT. jar
+```
+
+The API will be available at `http://localhost:8080`
+
+#### 4. Verify the Application
+
+Check the health endpoint:
+
+```bash
+curl http://localhost:8080/actuator/health
+```
+
+#### Configuration
+
+The application uses the following default configuration 
+
+- **Port**: `8080`
+
+- **Database**: H2 file-based database stored in `./data/profileDB`
+
+- **Logs**: Stored in `./logs/app.log` (max 10MB per file with rotation)
+
+- **Metrics**: Available at `/actuator/prometheus` and `/actuator/metrics`
+
+> [!NOTE]
+> 
+> These settings can be changed in `src/main/resources/application.properties`
+
 ## Docker Setup
 
 ## API endpoints & Example
