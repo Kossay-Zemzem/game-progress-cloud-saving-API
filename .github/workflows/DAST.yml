@@ -1,0 +1,55 @@
+name: DAST Scan
+
+permissions:
+  contents: read
+  issues: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  zap-scan:
+    name: OWASP ZAP Baseline Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.1
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build application
+        run: mvn clean package -DskipTests
+
+      - name: Start application
+        run: |
+          java -jar -Dserver.port=8080 target/*.jar &
+          echo $! > app.pid
+
+      - name: Wait for application to be ready
+        run: |
+          timeout 60 bash -c 'until curl -f http://localhost:8080/actuator/health || curl -f http://localhost:8080; do sleep 2; done'
+
+      - name: Run ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.13.0
+        with:
+          target: 'http://localhost:8080'
+          # rules_file_name: '.zap/rules.tsv'
+          # cmd_options: '-a'
+
+      - name: Stop application
+        if: always()
+        run: |
+          if [ -f app.pid ]; then
+            kill $(cat app.pid) || true
+          fi
