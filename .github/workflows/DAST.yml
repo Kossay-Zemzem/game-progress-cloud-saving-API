@@ -41,11 +41,17 @@ jobs:
         run: |
           timeout 60 bash -c 'until curl -f http://localhost:8080/actuator/health || curl -f http://localhost:8080; do sleep 2; done'
 
+      # extract timestamp for artifact name
+      - name: Set scan timestamp
+        id: timestamp
+        run: echo "date=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+
       - name: Run ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.15.0
         with:
+          #token: ${{ secrets.GITHUB_TOKEN }}
           target: 'http://localhost:8080'
-          artifact_name: 'scanreport'  # Default name "zap_scan" is causing issues because of the underscore
+          artifact_name: 'scan-report-${{ steps.timestamp.outputs.date }}'  # Default name "zap_scan" is causing issues because of the underscore
           # rules_file_name: '.zap/rules.tsv'
           # cmd_options: '-a'
 
