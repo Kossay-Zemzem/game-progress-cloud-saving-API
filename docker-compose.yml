@@ -3,7 +3,7 @@ services:
     #Build the image from the Dockerfile if not already built
     build: .
     # Image used to run the container
-    image: profile-api:latest
+    image: profile-api:local
     ports:
       # If APP_PORT is set in .env, use it.
       # If .env file is missing or variable is empty, default to 8080.
