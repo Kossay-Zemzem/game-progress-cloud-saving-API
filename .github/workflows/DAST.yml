@@ -42,7 +42,7 @@ jobs:
           timeout 60 bash -c 'until curl -f http://localhost:8080/actuator/health || curl -f http://localhost:8080; do sleep 2; done'
 
       - name: Run ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.13.0
+        uses: zaproxy/action-baseline@v0.15.0
         with:
           target: 'http://localhost:8080'
           artifact_name: 'scanreport'  # Default name "zap_scan" is causing issues because of the underscore
