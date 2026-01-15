@@ -1,3 +1,4 @@
+#This workflow performs a DAST scan using OWASP ZAP after every push to the main branch.
 name: DAST Scan
 
 permissions:
@@ -7,9 +8,6 @@ permissions:
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
   workflow_dispatch:
@@ -51,7 +49,9 @@ jobs:
         with:
           #token: ${{ secrets.GITHUB_TOKEN }}
           target: 'http://localhost:8080'
+          #Generate report in HTML, Markdown and JSON formats
           artifact_name: 'scan-report-${{ steps.timestamp.outputs.date }}'  # Default name "zap_scan" is causing issues because of the underscore
+          allow_issue_writing: 'false'
           # rules_file_name: '.zap/rules.tsv'
           # cmd_options: '-a'
 
