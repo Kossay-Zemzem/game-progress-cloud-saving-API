@@ -67,7 +67,7 @@ docker pull kossayzemzem/profile-api:latest
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Kossay-Zemzem/game-progress-cloud-saving-API. git
+git clone https://github.com/Kossay-Zemzem/game-progress-cloud-saving-API.git
 
 cd game-progress-cloud-saving-API
 ```
@@ -241,4 +241,194 @@ docker run -p 8080:8080 `
 
 The API will be available at `http://localhost:8080`
 
-## API endpoints & Example
+## API endpoints
+
+The API provides the following endpoints for managing game profiles: 
+
+**Base URL**: http://localhost:PORT_NUMBER
+
+The next section will use default port `8080` as an example
+
+#### 1. Create Profile
+
+Creates a new game profile. 
+
+- **URL**: `/profiles`
+- **Method**: `POST`
+- **Content-Type**: `application/json`
+
+**Request Body**: 
+
+```json
+{
+  "profileName": "string",
+  "playerName": "string (max 30 characters)",
+  "playerId": "positive integer",
+  "level": "non-negative integer",
+  "xp": "non-negative integer",
+  "lastCheckpoint": "string (format: Letter + digit, e.g., A1, B5)"
+}
+```
+
+**Response**: `201 Created`
+
+- Returns the created profile with generated `id`
+- Includes `Location` header with the resource URI
+
+---
+
+#### 2. Get All Profiles
+
+Retrieves all game profiles.
+
+- **URL**:  `/profiles`
+- **Method**: `GET`
+
+**Response**: `200 OK`
+
+- Returns an array of profile objects
+
+---
+
+#### 3. Get Profile by ID
+
+Retrieves a specific game profile by its ID.
+
+- **URL**: `/profiles/{id}`
+- **Method**: `GET`
+- **Path Parameter**: `id` (Long) - The profile ID
+
+**Response**:  `200 OK`
+
+- Returns the profile object if found
+- Returns `null` if not found
+
+---
+
+## Validation Rules
+
+The API validates the following fields:
+
+| Field            | Validation                                                         |
+| ---------------- | ------------------------------------------------------------------ |
+| `profileName`    | Cannot be null                                                     |
+| `playerName`     | Required, max 30 characters, cannot be blank                       |
+| `playerId`       | Required, must be positive                                         |
+| `level`          | Required, cannot be negative                                       |
+| `xp`             | Required, cannot be negative                                       |
+| `lastCheckpoint` | Must match format: One uppercase letter + one digit (e.g., A1, Z9) |
+
+### API usage example
+
+#### Step 1: Create Profiles
+
+**POST** `http://localhost:8080/profiles`
+
+**Request Body**:
+
+```json
+{
+  "profileName": "Mohamed Saleh",
+  "playerName": "DragonSlayer",
+  "playerId":  1111,
+  "level": 15,
+  "xp": 2500,
+  "lastCheckpoint": "A5"
+}
+```
+
+**Response** (`201 Created`):
+
+```json
+{
+  "id": 1,
+  "profileName":  "Mohamed Saleh",
+  "playerName": "DragonSlayer",
+  "playerId": 1111,
+  "level": 15,
+  "xp":  2500,
+  "lastCheckpoint": "A5"
+}
+```
+
+---
+
+**POST** `http://localhost:8080/profiles`
+
+**Request Body**:
+
+```json
+{
+  "profileName": "Speedrun Challenge",
+  "playerName":  "FastRunner",
+  "playerId": 67890,
+  "level": 8,
+  "xp": 1200,
+  "lastCheckpoint": "B3"
+}
+```
+
+**Response** (`201 Created`):
+
+```json
+{
+  "id": 2,
+  "profileName": "Speedrun Challenge",
+  "playerName":  "FastRunner",
+  "playerId": 67890,
+  "level": 8,
+  "xp": 1200,
+  "lastCheckpoint": "B3"
+}
+```
+
+---
+
+### Step 2: Get All Profiles
+
+**GET** `http://localhost:8080/profiles`
+
+**Response** (`200 OK`):
+
+```json
+[
+  {
+    "id":  1,
+    "profileName": "Mohamed Saleh",
+    "playerName": "DragonSlayer",
+    "playerId": 1111,
+    "level":  15,
+    "xp": 2500,
+    "lastCheckpoint": "A5"
+  },
+  {
+    "id": 2,
+    "profileName": "Speedrun Challenge",
+    "playerName":  "FastRunner",
+    "playerId": 67890,
+    "level": 8,
+    "xp": 1200,
+    "lastCheckpoint": "B3"
+  }
+]
+```
+
+---
+
+### Step 3: Get Profile by ID
+
+**GET** `http://localhost:8080/profiles/1`
+
+**Response** (`200 OK`):
+
+```json
+{
+  "id": 1,
+  "profileName": "Mohamed Saleh",
+  "playerName": "DragonSlayer",
+  "playerId": 1111,
+  "level": 15,
+  "xp": 2500,
+  "lastCheckpoint": "A5"
+}
+```
