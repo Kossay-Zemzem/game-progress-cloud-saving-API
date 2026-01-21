@@ -6,9 +6,14 @@ This project is a simple backend API built with Spring Boot that allows for mana
 
 The goal of this project is demonstrate DevOps practices in a practical project.
 
+> [!NOTE]
+> This project is still under development. See [Planned features](#planned-features) section for reference.
+
 ## Table of Contents
 
 - [Official Docker Repository](#official-docker-repository)
+
+- [Planned features](#planned-features)
 
 - [Technologies & Tools](#technologies--tools)
 
@@ -35,6 +40,16 @@ The goal of this project is demonstrate DevOps practices in a practical project.
 
 - [API Usage Example](#api-usage-example)
 
+## Planned features 
+
+- [ ] Refactor and improve workflows and their triggers 
+- [ ] Add delete endpoint
+- [ ] Add Prometheus support
+- [ ] Add JSON support for logs
+- [ ] Add Kubernetes deployment support
+- [ ] (More features can be considered as the project advances)
+
+
 ## Official docker repository
 
 You can check the [Docker hub repoistory](https://hub.docker.com/r/kossayzemzem/profile-api) or use pull the image using :
@@ -42,6 +57,8 @@ You can check the [Docker hub repoistory](https://hub.docker.com/r/kossayzemzem/
 ```bash
 docker pull kossayzemzem/profile-api:latest
 ```
+> [!WARNING]
+> Publishing to docker hub is temporarily disabled until workflows are fully refactored.
 
 ## Technologies & Tools
 
