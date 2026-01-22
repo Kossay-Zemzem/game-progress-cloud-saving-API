@@ -47,7 +47,7 @@ jobs:
     - name: SonarQube Scan
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -DskipTests compile org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+      run: mvn -DskipTests verify sonar:sonar \
         -Dsonar.host.url=https://sonarcloud.io \
         -Dsonar.organization=kossay-zemzem \
         -Dsonar.projectKey=Kossay-Zemzem_game-progress-cloud-saving-API
