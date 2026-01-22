@@ -6,7 +6,8 @@ name: CI Pipeline
 permissions:
   contents: read
   pull-requests: read
-  actions: write
+  checks: write
+  statuses: write
 
 on:
   push:
