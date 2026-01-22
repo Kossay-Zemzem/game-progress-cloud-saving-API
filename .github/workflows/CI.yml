@@ -34,8 +34,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-#    - name: SonarCloud Scan
-#      uses: SonarSource/sonarcloud-github-action@master
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v7.0.0 # Ex: v4.1.0 or sha1, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     - name: Set up java runtime
       uses: actions/setup-java@v5
