@@ -70,6 +70,7 @@ jobs:
           type=raw,value=latest
     - name: Build and push
       uses: docker/build-push-action@v6.18.0
+      if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
       with:
         context: .
         push: ${{ vars.DOCKER_PUSH_ENABLED != 'false' }}
