@@ -37,21 +37,35 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-    - name: Set up java runtime
-      uses: actions/setup-java@v5
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-        cache: 'maven'
-
-    - name: SonarQube Scan
+    - name: Snyk scan for vulnerabilities
+      uses: snyk/actions/maven-3-jdk-17@master
+      continue-on-error: true # To make sure that SARIF upload gets called
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        mvn -DskipTests verify sonar:sonar \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.organization=kossay-zemzem \
-          -Dsonar.projectKey=Kossay-Zemzem_game-progress-cloud-saving-API
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: monitor --severity-threshold=high --sarif-file-output=snyk.sarif --fail-on=upgradable
+
+    # Upload Snyk scan results to GitHub Code Scanning (appears in Security tab)
+    - name: Upload result to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: snyk.sarif
+
+#    - name: Set up java runtime
+#      uses: actions/setup-java@v5
+#      with:
+#        distribution: 'temurin'
+#        java-version: '17'
+#        cache: 'maven'
+#
+#    - name: SonarQube Scan
+#      env:
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#      run: |
+#        mvn -DskipTests verify sonar:sonar \
+#          -Dsonar.host.url=https://sonarcloud.io \
+#          -Dsonar.organization=kossay-zemzem \
+#          -Dsonar.projectKey=Kossay-Zemzem_game-progress-cloud-saving-API
 
   Build-Test:
     needs: SAST-Scan
