@@ -37,6 +37,14 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
+    # Necessary to set up Java for Snyk to use maven for dependency resolution
+    - name: Set up java runtime
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'maven'
+
     - name: Snyk scan for vulnerabilities
       uses: snyk/actions/maven-3-jdk-17@master
       continue-on-error: true # To make sure that SARIF upload gets called
