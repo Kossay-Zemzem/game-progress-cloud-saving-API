@@ -44,6 +44,8 @@ jobs:
 #        distribution: 'temurin'
 #        java-version: '17'
 #        cache: 'maven'
+    - name: Add mvnw permissions
+      run: chmod +x mvnw
 
     - name: Snyk scan for vulnerabilities
       uses: snyk/actions/maven@master
@@ -51,8 +53,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: >
-          --severity-threshold=high --fail-on=upgradable --sarif-file-output=snyk.sarif
+        args: --severity-threshold=high --fail-on=upgradable --sarif-file-output=snyk.sarif
 
     # Upload Snyk scan results to GitHub Code Scanning (appears in Security tab)
     - name: Upload result to GitHub Code Scanning
