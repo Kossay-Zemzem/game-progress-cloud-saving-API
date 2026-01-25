@@ -8,6 +8,8 @@ permissions:
   pull-requests: write
   checks: write
   statuses: write
+  actions: write
+  security-events: write
 
 on:
   push:
@@ -37,13 +39,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-#    # Necessary to set up Java for Snyk to use maven for dependency resolution
-#    - name: Set up java runtime
-#      uses: actions/setup-java@v5
-#      with:
-#        distribution: 'temurin'
-#        java-version: '17'
-#        cache: 'maven'
     - name: Add mvnw permissions
       run: chmod +x mvnw
 
@@ -57,25 +52,9 @@ jobs:
 
     # Upload Snyk scan results to GitHub Code Scanning (appears in Security tab)
     - name: Upload result to GitHub Code Scanning
-      uses: github/codeql-action/upload-sarif@v3
+      uses: github/codeql-action/upload-sarif@v4
       with:
         sarif_file: snyk.sarif
-
-#    - name: Set up java runtime
-#      uses: actions/setup-java@v5
-#      with:
-#        distribution: 'temurin'
-#        java-version: '17'
-#        cache: 'maven'
-#
-#    - name: SonarQube Scan
-#      env:
-#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#      run: |
-#        mvn -DskipTests verify sonar:sonar \
-#          -Dsonar.host.url=https://sonarcloud.io \
-#          -Dsonar.organization=kossay-zemzem \
-#          -Dsonar.projectKey=Kossay-Zemzem_game-progress-cloud-saving-API
 
   Build-Test:
     needs: SAST-Scan
