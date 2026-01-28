@@ -1,5 +1,6 @@
 package com.devops.profileapi;
 
+import com.devops.profileapi.Exceptions.ProfileNotFoundException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
-@Valid
 @Slf4j
 @RestController
 public class ProfileController {
@@ -49,11 +49,11 @@ public class ProfileController {
     public Profile getProfileById(@PathVariable("id") Long id) {
         log.info("method=GET path=/profiles/{} desc=Fetching profile by id", id);
         profileFetchCounter.increment(); //metric increment
-        return profileRepository.findById(id).orElse(null);
+        return profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id));
     }
 
     @PostMapping("/profiles")
-    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
+    public ResponseEntity<Profile> createProfile(@Valid @RequestBody Profile profile) {
         log.info("method=POST path=/profiles desc=Creating new profile");
         Profile savedProfile = profileRepository.save(profile);
         profileCreateCounter.increment(); //metric increment
@@ -64,6 +64,8 @@ public class ProfileController {
     @DeleteMapping("/profiles/{id}")
     public ResponseEntity<Void> deleteProfile(@PathVariable("id") Long id) {
         log.info("method=DELETE path=/profiles/{} desc=Deleting profile by id", id);
+        // Verify profile exists before deleting
+        profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id));
         profileRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
