@@ -1,5 +1,6 @@
 package com.devops.profileapi;
 
+import com.devops.profileapi.Exceptions.ProfileNotFoundException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -49,7 +50,7 @@ public class ProfileController {
     public Profile getProfileById(@PathVariable("id") Long id) {
         log.info("method=GET path=/profiles/{} desc=Fetching profile by id", id);
         profileFetchCounter.increment(); //metric increment
-        return profileRepository.findById(id).orElse(null);
+        return profileRepository.findById(id).orElseThrow(() -> new ProfileNotFoundException(id));
     }
 
     @PostMapping("/profiles")
