@@ -60,4 +60,11 @@ public class ProfileController {
         URI location = URI.create(String.format("/profiles/%s", savedProfile.getId())); //return the location of the created resource as per REST conventions
         return ResponseEntity.created(location).body(savedProfile); //returns 201 created as per change request
     }
+
+    @DeleteMapping("/profiles/{id}")
+    public ResponseEntity<Void> deleteProfile(@PathVariable("id") Long id) {
+        log.info("method=DELETE path=/profiles/{} desc=Deleting profile by id", id);
+        profileRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
