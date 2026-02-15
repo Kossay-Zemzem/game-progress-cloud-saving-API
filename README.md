@@ -42,7 +42,8 @@ The goal of this project is demonstrate DevOps practices in a practical project.
 
 ## Planned features 
 
-- [ ] Refactor and improve workflows and their triggers 
+- [ ] Refactor and improve workflows and their triggers
+- [ ] Support "dev" and "prod" profiles with test data injection and different database sources
 - [ ] Add delete endpoint
 - [ ] Add Prometheus support
 - [ ] Add JSON support for logs
