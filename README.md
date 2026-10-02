@@ -1,19 +1,14 @@
 # Video Game Profile Management API - DevOps demonsrtation
 
-**Made by** : Kossay Zemzem - Groupe C
+**Made by** : Kossay Zemzem
 
-This project is a simple backend API built with Spring Boot that allows for managing profiles of players of a video game. It acts as a backup API system to save user profiles across their devices ( Similar to how plateforms like Steam use save your progress online using Steam Cloud )
+This project is a simple backend API built with Spring Boot that simulates managing profiles of players in a video game. It acts as a backup API system to save user profiles across their devices ( Similar to how plateforms like Steam use save your progress online using Steam Cloud ).
 
-The goal of this project is demonstrate DevOps practices in a practical project.
-
-> [!NOTE]
-> This project is still under development. See [Planned features](#planned-features) section for reference.
+The goal of this project is demonstrate DevOps practices in a practical project. 
 
 ## Table of Contents
 
 - [Official Docker Repository](#official-docker-repository)
-
-- [Planned features](#planned-features)
 
 - [Technologies & Tools](#technologies--tools)
 
@@ -40,16 +35,7 @@ The goal of this project is demonstrate DevOps practices in a practical project.
 
 - [API Usage Example](#api-usage-example)
 
-## Planned features 
-
-- [ ] Refactor and improve workflows and their triggers
-- [ ] Support "dev" and "prod" profiles with test data injection and different database sources
-- [ ] Add delete endpoint
-- [ ] Add Prometheus support
-- [ ] Add JSON support for logs
-- [ ] Add Kubernetes deployment support
-- [ ] (More features can be considered as the project advances)
-
+- [Future Improvements](#future-improvements)
 
 ## Official docker repository
 
@@ -479,3 +465,13 @@ The API validates the following fields:
   "lastCheckpoint": "A5"
 }
 ```
+
+## Future Improvements 
+
+- [ ] Refactor and improve workflows and their triggers
+- [ ] Support "dev" and "prod" profiles with test data injection and different database sources
+- [ ] Add delete endpoint
+- [ ] Add Prometheus support
+- [ ] Add JSON support for logs
+- [ ] Add Kubernetes deployment support
+
